@@ -6,9 +6,11 @@ if(!(Test-Path -Path $deploy_path ))
     New-Item -ItemType directory -Path $deploy_path
 }
 
-
 # Get project name
 $projname = (Get-Item *.PrjPcb).BaseName
+
+# Delete previous files
+del "$deploy_path\$projname*"
 
 # PDF --------------------------------------------------------------------------
 
@@ -29,6 +31,7 @@ $gerbers = @(
 	"Gerbers\$projname.GBL",
 	"Gerbers\$projname.GBO",
 	"Gerbers\$projname.GBS",
+	"Gerbers\$projname.GM1",
 	"Gerbers\$projname.GTL",
 	"Gerbers\$projname.GTO",
 	"Gerbers\$projname.GTS",
