@@ -1,0 +1,987 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD19\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">9/30/2019</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">11:31:17 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc" class="file"><acronym title="D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc">D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">201</td></tr>
+</table>
+</td>
+</table><a name="IDPYO3JUUYQLTUI5CYLP2X5XREXP3FFA0RP5X0NJG5YYOALGEGERCC"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGXS2VAWIYWR5G4QUY3QP1GZ2HERX4S5YL552A3LPHJY3VYXG515K">Clearance Constraint (Gap=0.15mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDY4FK10U1AV54G14OOUGXXISYUCQBQY4KK42B5QBP1L0LAE3IQX0I">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAU5P4MLAUCFJKLB2YBW5Y3Q5TBIUUOOJ30RPFYDZWEQLYPCJ52TF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">12</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPOGFE041JVQCGLXPHFJQYXBXKFW3XTOHOCZ3KKLNKDBZE5ONPV5">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNFFNPCHNHOLCMNKWKTWX4HEKTIROFFU4KPDNFIKJLCGEBUBQNBNB">Width Constraint (Min=0.15mm) (Max=1.5mm) (Preferred=0.2mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0RC3JJ2Q03O1C4VUALB52V14XJWDBPL5PRJJNMHOOEQUT2TUMSHB">Power Plane Connect Rule(Relief Connect )(Expansion=0.175mm) (Conductor Width=0.2mm) (Air Gap=0.2mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBE0R42DKEEOHCVBVKC0KMNDUZIHPPUCOGCBWHSGYEN3ISYIBIAB">Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter &gt; AsMM(0.45)))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRERVP1ZZUSIRBJGB3GMXOY4ORCJ22YPEYXGG3SWFVF20TZGQGDM">Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter &lt;= AsMM(0.45)))</a></td>
+<td class="column2">25</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSOLRIMLNCHQ2PPJT2AU0QPPWYLJV0KE4K3GZ0YM3MXUXGAGY45II">Hole Size Constraint (Min=0.25mm) (Max=2mm) (All)</a></td>
+<td class="column2">25</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSPHVG1R3QH3CJD5VNQK1FXOHMLRLA2UEHG3MKXOB1NJ3ILDUNU0B">Pads and Vias to follow the Drill pairs settings</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3DLAYZPVWZXTFIXTXDYSTAVS2PHWMIB2W01WM1BSPFGIEVZOL2XI">Hole To Hole Clearance (Gap=0.35mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1RPQENLXURHMMLXUOFX4QCEZUP3FGUVIGWR3JYHM5VDCKZ4AIY4N">Minimum Solder Mask Sliver (Gap=0.08mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRIZIRPKIOTIWKXRCNNYX2BGHDPYEFO4DHZ0HLEIIV0B3NNSD0BRH">Silk To Solder Mask (Clearance=0.2mm) (IsPad),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEYSACWPL1O2PJXKOKUFA5TPPSDCQFQAT0TXJC3L2SAB2F3CPHH4P">Silk to Silk (Clearance=0.2mm) (All),(All)</a></td>
+<td class="column2">7</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1RGRGV3ULAVDHH3UX1HKQW1IAD0SCM251KMF0F5UHNNCKHSV2KC">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEBM3WS0ZQIEHL0XBBBBT2XCL1PHWOMNZNCTQXIMM32GP2SL1FWXC">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">125</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2NHKW3ZSZY4VBLA4B2IHDWMYWJMA5WOL14VXFFBVN1NTJHAFZ0TD">Room U_smart-gate-driver (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_smart-gate-driver'))</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID32TUEEM4043YBGKLQ5FQSL4R5FLX0LFBSCBIRQJLLBHNEEUYA4UI">Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A'))</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBNUOMAY20YZZOKFGAB13SG4IHSYPWFY3LVVDAFUXEVOO4N4LLEJ">Component Clearance Constraint ( Horizontal Gap = 0.25mm, Vertical Gap = 0.25mm ) (All),(All) </a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPCJPS1UAKXITBLYD1HY2I40LDEG2GJLDEEAYZ0FWMNUDO5TVMTRG">Height Constraint (Min=0mm) (Max=50mm) (Prefered=12.5mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">201</td>
+</tr>
+</table><br><a name="IDAU5P4MLAUCFJKLB2YBW5Y3Q5TBIUUOOJ30RPFYDZWEQLYPCJ52TF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9768.071mil|Location2.X=10375mil|Location1.Y=10752.52mil|Location2.Y=12102.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9768.071mil|Location2.X=10375mil|Location1.Y=10752.52mil|Location2.Y=12102.362mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_A_1 Between Pad C2_U_half-bridge_A-2(-0.875mm,24.13mm) on Multi-Layer And Pad C1_U_half-bridge_A-1(12.7mm,56.575mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10310.039mil|Location2.X=10375mil|Location1.Y=10947.52mil|Location2.Y=12397.638mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10310.039mil|Location2.X=10375mil|Location1.Y=10947.52mil|Location2.Y=12397.638mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_A_2 Between Pad T1_U_half-bridge_A-2(12.7mm,29.21mm) on Multi-Layer And Pad C1_U_half-bridge_A-2(12.7mm,64.075mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10952.52mil|Location2.X=15632.48mil|Location1.Y=9652.52mil|Location2.Y=10234.843mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10952.52mil|Location2.X=15632.48mil|Location1.Y=9652.52mil|Location2.Y=10234.843mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_B_1 Between Pad C2_U_half-bridge_B-2(29.21mm,-3.81mm) on Multi-Layer And Pad C1_U_half-bridge_B-1(146.24mm,9.14mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11543.071mil|Location2.X=15632.48mil|Location1.Y=9652.52mil|Location2.Y=10530.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11543.071mil|Location2.X=15632.48mil|Location1.Y=9652.52mil|Location2.Y=10530.118mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_B_2 Between Pad C2_U_half-bridge_B-1(44.21mm,-3.81mm) on Multi-Layer And Pad C1_U_half-bridge_B-2(146.24mm,16.64mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13247.402mil|Location2.X=15632.48mil|Location1.Y=11169.882mil|Location2.Y=11752.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13247.402mil|Location2.X=15632.48mil|Location1.Y=11169.882mil|Location2.Y=11752.598mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_C_1 Between Pad C2_U_half-bridge_C-2(87.5mm,47.5mm) on Multi-Layer And Pad C1_U_half-bridge_C-1(146.24mm,34.54mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13247.402mil|Location2.X=15632.48mil|Location1.Y=11082.047mil|Location2.Y=11530.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13247.402mil|Location2.X=15632.48mil|Location1.Y=11082.047mil|Location2.Y=11530.118mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_C_2 Between Pad C2_U_half-bridge_C-1(87.5mm,32.5mm) on Multi-Layer And Pad C1_U_half-bridge_C-2(146.24mm,42.04mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9177.52mil|Location2.X=10372.52mil|Location1.Y=10752.52mil|Location2.Y=11037.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9177.52mil|Location2.X=10372.52mil|Location1.Y=10752.52mil|Location2.Y=11037.52mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_A_2 Between Pad C2_U_half-bridge_A-1(-15.875mm,24.13mm) on Multi-Layer And Pad T1_U_half-bridge_A-2(12.7mm,29.21mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11162.52mil|Location2.X=11623.071mil|Location1.Y=9652.52mil|Location2.Y=11037.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11162.52mil|Location2.X=11623.071mil|Location1.Y=9652.52mil|Location2.Y=11037.52mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_B_2 Between Pad T1_U_half-bridge_B-2(34.29mm,29.21mm) on Multi-Layer And Pad C2_U_half-bridge_B-1(44.21mm,-3.81mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12012.52mil|Location2.X=13327.402mil|Location1.Y=10547.52mil|Location2.Y=11162.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12012.52mil|Location2.X=13327.402mil|Location1.Y=10547.52mil|Location2.Y=11162.047mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_U_half-bridge_C_2 Between Pad T1_U_half-bridge_C-2(55.88mm,19.05mm) on Multi-Layer And Pad C2_U_half-bridge_C-1(87.5mm,32.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10212.52mil|Location2.X=10372.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10212.52mil|Location2.X=10372.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True">Un-Routed Net Constraint: Net NetT1_U_half-bridge_A_3 Between Pad T1_U_half-bridge_A-3(10.16mm,29.21mm) on Multi-Layer And Pad T2_U_half-bridge_A-2(12.7mm,19.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11062.52mil|Location2.X=11222.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11062.52mil|Location2.X=11222.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True">Un-Routed Net Constraint: Net NetT1_U_half-bridge_B_3 Between Pad T1_U_half-bridge_B-3(31.75mm,29.21mm) on Multi-Layer And Pad T2_U_half-bridge_B-2(34.29mm,19.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12012.52mil|Location2.X=12172.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12012.52mil|Location2.X=12172.52mil|Location1.Y=10547.52mil|Location2.Y=11037.52mil|Absolute=True">Un-Routed Net Constraint: Net NetT1_U_half-bridge_C_3 Between Pad T2_U_half-bridge_C-2(55.88mm,29.21mm) on Multi-Layer And Pad T1_U_half-bridge_C-3(58.42mm,19.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRERVP1ZZUSIRBJGB3GMXOY4ORCJ22YPEYXGG3SWFVF20TZGQGDM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter &lt;= AsMM(0.45)))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10299.256mil|Location2.X=10307.395mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10299.256mil|Location2.X=10307.395mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(11.704mm,-12.772mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.094mil|Location2.X=10335.234mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.094mil|Location2.X=10335.234mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(12.412mm,-12.065mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.094mil|Location2.X=10335.234mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.094mil|Location2.X=10335.234mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(12.412mm,-13.479mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.119mm,-11.358mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.119mm,-12.772mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10354.933mil|Location2.X=10363.073mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.119mm,-14.186mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9426.049mil|Location2.Y=9434.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9426.049mil|Location2.Y=9434.188mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.826mm,-10.651mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.826mm,-12.065mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.826mm,-13.479mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9259.016mil|Location2.Y=9267.155mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10382.772mil|Location2.X=10390.912mil|Location1.Y=9259.016mil|Location2.Y=9267.155mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(13.826mm,-14.893mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(14.533mm,-11.358mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(14.533mm,-12.772mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(14.533mm,-14.186mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9231.177mil|Location2.Y=9239.317mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9231.177mil|Location2.Y=9239.317mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(14.533mm,-15.601mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9453.888mil|Location2.Y=9462.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.611mil|Location2.X=10418.751mil|Location1.Y=9453.888mil|Location2.Y=9462.027mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(14.533mm,-9.944mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9426.049mil|Location2.Y=9434.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9426.049mil|Location2.Y=9434.188mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.24mm,-10.651mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.24mm,-12.065mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.24mm,-13.479mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9259.016mil|Location2.Y=9267.155mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.45mil|Location2.X=10446.59mil|Location1.Y=9259.016mil|Location2.Y=9267.155mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.24mm,-14.893mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.428mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.428mil|Location1.Y=9398.21mil|Location2.Y=9406.35mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.947mm,-11.358mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.428mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.428mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.947mm,-12.772mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.429mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.289mil|Location2.X=10474.429mil|Location1.Y=9286.854mil|Location2.Y=9294.994mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(15.947mm,-14.186mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.128mil|Location2.X=10502.267mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.128mil|Location2.X=10502.267mil|Location1.Y=9370.371mil|Location2.Y=9378.511mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(16.654mm,-12.065mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.128mil|Location2.X=10502.267mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.128mil|Location2.X=10502.267mil|Location1.Y=9314.693mil|Location2.Y=9322.833mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(16.654mm,-13.479mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10521.966mil|Location2.X=10530.106mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10521.966mil|Location2.X=10530.106mil|Location1.Y=9342.532mil|Location2.Y=9350.672mil|Absolute=True">Minimum Annular Ring: (0.148mm &lt; 0.175mm) Pad U1-V(17.361mm,-12.772mm) on Multi-Layer (Annular Ring=0.148mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSOLRIMLNCHQ2PPJT2AU0QPPWYLJV0KE4K3GZ0YM3MXUXGAGY45II"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=0.25mm) (Max=2mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10297.044mil|Location2.X=10309.607mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10297.044mil|Location2.X=10309.607mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(11.704mm,-12.772mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10324.882mil|Location2.X=10337.446mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10324.882mil|Location2.X=10337.446mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(12.412mm,-12.065mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10324.882mil|Location2.X=10337.446mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10324.882mil|Location2.X=10337.446mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(12.412mm,-13.479mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.119mm,-11.358mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.119mm,-12.772mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10352.721mil|Location2.X=10365.285mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.119mm,-14.186mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9416.915mil|Location2.Y=9429.479mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9416.915mil|Location2.Y=9429.479mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.826mm,-10.651mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.826mm,-12.065mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.826mm,-13.479mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9249.882mil|Location2.Y=9262.446mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10380.56mil|Location2.X=10393.124mil|Location1.Y=9249.882mil|Location2.Y=9262.446mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(13.826mm,-14.893mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(14.533mm,-11.358mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(14.533mm,-12.772mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(14.533mm,-14.186mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9222.043mil|Location2.Y=9234.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9222.043mil|Location2.Y=9234.607mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(14.533mm,-15.601mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9444.754mil|Location2.Y=9457.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10408.399mil|Location2.X=10420.963mil|Location1.Y=9444.754mil|Location2.Y=9457.318mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(14.533mm,-9.944mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9416.915mil|Location2.Y=9429.479mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9416.915mil|Location2.Y=9429.479mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.24mm,-10.651mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.24mm,-12.065mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.24mm,-13.479mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9249.882mil|Location2.Y=9262.446mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10436.238mil|Location2.X=10448.802mil|Location1.Y=9249.882mil|Location2.Y=9262.446mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.24mm,-14.893mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.64mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.64mil|Location1.Y=9389.077mil|Location2.Y=9401.64mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.947mm,-11.358mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.64mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.64mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.947mm,-12.772mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.641mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10464.077mil|Location2.X=10476.641mil|Location1.Y=9277.721mil|Location2.Y=9290.285mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(15.947mm,-14.186mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10491.916mil|Location2.X=10504.479mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10491.916mil|Location2.X=10504.479mil|Location1.Y=9361.238mil|Location2.Y=9373.802mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(16.654mm,-12.065mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10491.916mil|Location2.X=10504.479mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10491.916mil|Location2.X=10504.479mil|Location1.Y=9305.56mil|Location2.Y=9318.124mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(16.654mm,-13.479mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10519.754mil|Location2.X=10532.318mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10519.754mil|Location2.X=10532.318mil|Location1.Y=9333.399mil|Location2.Y=9345.963mil|Absolute=True">Hole Size Constraint: (0.203mm &lt; 0.25mm) Pad U1-V(17.361mm,-12.772mm) on Multi-Layer Actual Hole Size = 0.203mm</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRIZIRPKIOTIWKXRCNNYX2BGHDPYEFO4DHZ0HLEIIV0B3NNSD0BRH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.2mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10427.518mil|Location2.X=10436.642mil|Location1.Y=9152.078mil|Location2.Y=9161.202mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10427.518mil|Location2.X=10436.642mil|Location1.Y=9152.078mil|Location2.Y=9161.202mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.2mm) Between Pad U1-1(15.505mm,-17.633mm) on Top Layer And Track (14.533mm,-17.863mm)(14.851mm,-17.545mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10392.72mil|Location2.X=10401.844mil|Location1.Y=9152.078mil|Location2.Y=9161.202mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10392.72mil|Location2.X=10401.844mil|Location1.Y=9152.078mil|Location2.Y=9161.202mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.2mm) Between Pad U1-48(13.561mm,-17.633mm) on Top Layer And Track (14.215mm,-17.545mm)(14.533mm,-17.863mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDEYSACWPL1O2PJXKOKUFA5TPPSDCQFQAT0TXJC3L2SAB2F3CPHH4P"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.2mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10337.948mil|Location2.X=10347.072mil|Location1.Y=12544.158mil|Location2.Y=12553.282mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10337.948mil|Location2.X=10347.072mil|Location1.Y=12544.158mil|Location2.Y=12553.282mil|Absolute=True">Silk To Silk Clearance Constraint: (0.125mm &lt; 0.2mm) Between Arc (12.7mm,60.325mm) on Bottom Overlay And Text "+" (11.95mm,68.875mm) on Bottom Overlay Silk Text to Silk Clearance [0.125mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15595.447mil|Location2.X=15604.571mil|Location1.Y=10676.639mil|Location2.Y=10685.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15595.447mil|Location2.X=15604.571mil|Location1.Y=10676.639mil|Location2.Y=10685.763mil|Absolute=True">Silk To Silk Clearance Constraint: (0.125mm &lt; 0.2mm) Between Arc (146.24mm,12.89mm) on Top Overlay And Text "+" (146.99mm,21.44mm) on Top Overlay Silk Text to Silk Clearance [0.125mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15595.447mil|Location2.X=15604.571mil|Location1.Y=11676.639mil|Location2.Y=11685.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15595.447mil|Location2.X=15604.571mil|Location1.Y=11676.639mil|Location2.Y=11685.763mil|Absolute=True">Silk To Silk Clearance Constraint: (0.125mm &lt; 0.2mm) Between Arc (146.24mm,38.29mm) on Top Overlay And Text "+" (146.99mm,46.84mm) on Top Overlay Silk Text to Silk Clearance [0.125mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10833.869mil|Location2.X=10840.118mil|Location1.Y=11741.875mil|Location2.Y=11748.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10833.869mil|Location2.X=10840.118mil|Location1.Y=11741.875mil|Location2.Y=11748.125mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.2mm) Between Text "T1_U_half-bridge_A" (3.162mm,48.323mm) on Top Overlay And Text "T1_U_half-bridge_B" (24.752mm,48.323mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11683.869mil|Location2.X=11690.118mil|Location1.Y=11741.875mil|Location2.Y=11748.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11683.869mil|Location2.X=11690.118mil|Location1.Y=11741.875mil|Location2.Y=11748.125mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.2mm) Between Text "T1_U_half-bridge_B" (24.752mm,48.323mm) on Top Overlay And Text "T2_U_half-bridge_C" (46.342mm,48.323mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11679.709mil|Location2.X=11685.958mil|Location1.Y=10787.121mil|Location2.Y=10793.371mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11679.709mil|Location2.X=11685.958mil|Location1.Y=10787.121mil|Location2.Y=10793.371mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.2mm) Between Text "T1_U_half-bridge_C" (46.112mm,24.066mm) on Top Overlay And Text "T2_U_half-bridge_B" (24.523mm,24.072mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10829.73mil|Location2.X=10835.979mil|Location1.Y=10786.998mil|Location2.Y=10793.248mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10829.73mil|Location2.X=10835.979mil|Location1.Y=10786.998mil|Location2.Y=10793.248mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.2mm) Between Text "T2_U_half-bridge_A" (2.933mm,24.066mm) on Top Overlay And Text "T2_U_half-bridge_B" (24.523mm,24.072mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDEBM3WS0ZQIEHL0XBBBBT2XCL1PHWOMNZNCTQXIMM32GP2SL1FWXC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12213.739mil|Location2.Y=12221.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12213.739mil|Location2.Y=12221.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Arc (12.7mm,60.325mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10346.219mil|Location2.Y=10353.781mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10346.219mil|Location2.Y=10353.781mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Arc (146.24mm,12.89mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11346.219mil|Location2.Y=11353.781mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11346.219mil|Location2.Y=11353.781mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Arc (146.24mm,38.29mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12066.101mil|Location2.Y=12073.663mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12066.101mil|Location2.Y=12073.663mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_A-1(12.7mm,56.575mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12361.377mil|Location2.Y=12368.938mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.739mil|Location2.X=10346.3mil|Location1.Y=12361.377mil|Location2.Y=12368.938mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_A-2(12.7mm,64.075mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10198.581mil|Location2.Y=10206.143mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10198.581mil|Location2.Y=10206.143mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_B-1(146.24mm,9.14mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10493.857mil|Location2.Y=10501.419mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=10493.857mil|Location2.Y=10501.419mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_B-2(146.24mm,16.64mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11198.581mil|Location2.Y=11206.143mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11198.581mil|Location2.Y=11206.143mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_C-1(146.24mm,34.54mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11493.857mil|Location2.Y=11501.419mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.219mil|Location2.X=15603.781mil|Location1.Y=11493.857mil|Location2.Y=11501.419mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C1_U_half-bridge_C-2(146.24mm,42.04mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9213.739mil|Location2.X=9221.3mil|Location1.Y=10788.739mil|Location2.Y=10796.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9213.739mil|Location2.X=9221.3mil|Location1.Y=10788.739mil|Location2.Y=10796.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_A-1(-15.875mm,24.13mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9801.342mil|Location2.X=9808.903mil|Location1.Y=10788.739mil|Location2.Y=10796.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9801.342mil|Location2.X=9808.903mil|Location1.Y=10788.739mil|Location2.Y=10796.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_A-2(-0.875mm,24.13mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11579.29mil|Location2.X=11586.852mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11579.29mil|Location2.X=11586.852mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_B-1(44.21mm,-3.81mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10988.739mil|Location2.X=10996.3mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10988.739mil|Location2.X=10996.3mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_B-2(29.21mm,-3.81mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11118.266mil|Location2.Y=11125.828mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11118.266mil|Location2.Y=11125.828mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_C-1(87.5mm,32.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11708.818mil|Location2.Y=11716.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11708.818mil|Location2.Y=11716.379mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad C2_U_half-bridge_C-2(87.5mm,47.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10449.179mil|Location2.X=10456.74mil|Location1.Y=9144.508mil|Location2.Y=9152.07mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10449.179mil|Location2.X=10456.74mil|Location1.Y=9144.508mil|Location2.Y=9152.07mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-1(15.505mm,-17.633mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10574.453mil|Location2.X=10582.015mil|Location1.Y=9269.783mil|Location2.Y=9277.344mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10574.453mil|Location2.X=10582.015mil|Location1.Y=9269.783mil|Location2.Y=9277.344mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-10(18.687mm,-14.451mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10588.373mil|Location2.X=10595.934mil|Location1.Y=9283.702mil|Location2.Y=9291.264mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10588.373mil|Location2.X=10595.934mil|Location1.Y=9283.702mil|Location2.Y=9291.264mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-11(19.041mm,-14.098mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10602.292mil|Location2.X=10609.854mil|Location1.Y=9297.622mil|Location2.Y=9305.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10602.292mil|Location2.X=10609.854mil|Location1.Y=9297.622mil|Location2.Y=9305.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-12(19.394mm,-13.744mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10602.292mil|Location2.X=10609.854mil|Location1.Y=9374.178mil|Location2.Y=9381.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10602.292mil|Location2.X=10609.854mil|Location1.Y=9374.178mil|Location2.Y=9381.74mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-13(19.394mm,-11.8mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10588.373mil|Location2.X=10595.934mil|Location1.Y=9388.098mil|Location2.Y=9395.659mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10588.373mil|Location2.X=10595.934mil|Location1.Y=9388.098mil|Location2.Y=9395.659mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-14(19.041mm,-11.446mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10574.453mil|Location2.X=10582.015mil|Location1.Y=9402.017mil|Location2.Y=9409.579mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10574.453mil|Location2.X=10582.015mil|Location1.Y=9402.017mil|Location2.Y=9409.579mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-15(18.687mm,-11.093mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10560.534mil|Location2.X=10568.095mil|Location1.Y=9415.937mil|Location2.Y=9423.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10560.534mil|Location2.X=10568.095mil|Location1.Y=9415.937mil|Location2.Y=9423.498mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-16(18.334mm,-10.739mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10546.614mil|Location2.X=10554.176mil|Location1.Y=9429.856mil|Location2.Y=9437.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10546.614mil|Location2.X=10554.176mil|Location1.Y=9429.856mil|Location2.Y=9437.418mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-17(17.98mm,-10.386mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10532.695mil|Location2.X=10540.257mil|Location1.Y=9443.776mil|Location2.Y=9451.337mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10532.695mil|Location2.X=10540.257mil|Location1.Y=9443.776mil|Location2.Y=9451.337mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-18(17.626mm,-10.032mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10518.776mil|Location2.X=10526.337mil|Location1.Y=9457.695mil|Location2.Y=9465.257mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10518.776mil|Location2.X=10526.337mil|Location1.Y=9457.695mil|Location2.Y=9465.257mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-19(17.273mm,-9.679mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10463.098mil|Location2.X=10470.66mil|Location1.Y=9158.427mil|Location2.Y=9165.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10463.098mil|Location2.X=10470.66mil|Location1.Y=9158.427mil|Location2.Y=9165.989mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-2(15.859mm,-17.28mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10504.856mil|Location2.X=10512.418mil|Location1.Y=9471.614mil|Location2.Y=9479.176mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10504.856mil|Location2.X=10512.418mil|Location1.Y=9471.614mil|Location2.Y=9479.176mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-20(16.919mm,-9.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10490.937mil|Location2.X=10498.498mil|Location1.Y=9485.534mil|Location2.Y=9493.095mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10490.937mil|Location2.X=10498.498mil|Location1.Y=9485.534mil|Location2.Y=9493.095mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-21(16.566mm,-8.971mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10477.017mil|Location2.X=10484.579mil|Location1.Y=9499.453mil|Location2.Y=9507.015mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10477.017mil|Location2.X=10484.579mil|Location1.Y=9499.453mil|Location2.Y=9507.015mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-22(16.212mm,-8.618mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10463.098mil|Location2.X=10470.659mil|Location1.Y=9513.373mil|Location2.Y=9520.934mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10463.098mil|Location2.X=10470.659mil|Location1.Y=9513.373mil|Location2.Y=9520.934mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-23(15.859mm,-8.264mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10449.178mil|Location2.X=10456.74mil|Location1.Y=9527.292mil|Location2.Y=9534.854mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10449.178mil|Location2.X=10456.74mil|Location1.Y=9527.292mil|Location2.Y=9534.854mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-24(15.505mm,-7.911mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10372.622mil|Location2.X=10380.183mil|Location1.Y=9527.292mil|Location2.Y=9534.854mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10372.622mil|Location2.X=10380.183mil|Location1.Y=9527.292mil|Location2.Y=9534.854mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-25(13.561mm,-7.911mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10358.702mil|Location2.X=10366.264mil|Location1.Y=9513.373mil|Location2.Y=9520.934mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10358.702mil|Location2.X=10366.264mil|Location1.Y=9513.373mil|Location2.Y=9520.934mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-26(13.207mm,-8.264mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10344.783mil|Location2.X=10352.344mil|Location1.Y=9499.453mil|Location2.Y=9507.015mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10344.783mil|Location2.X=10352.344mil|Location1.Y=9499.453mil|Location2.Y=9507.015mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-27(12.854mm,-8.618mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10330.863mil|Location2.X=10338.425mil|Location1.Y=9485.534mil|Location2.Y=9493.095mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10330.863mil|Location2.X=10338.425mil|Location1.Y=9485.534mil|Location2.Y=9493.095mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-28(12.5mm,-8.971mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10316.944mil|Location2.X=10324.506mil|Location1.Y=9471.614mil|Location2.Y=9479.176mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10316.944mil|Location2.X=10324.506mil|Location1.Y=9471.614mil|Location2.Y=9479.176mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-29(12.146mm,-9.325mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10477.017mil|Location2.X=10484.579mil|Location1.Y=9172.347mil|Location2.Y=9179.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10477.017mil|Location2.X=10484.579mil|Location1.Y=9172.347mil|Location2.Y=9179.908mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-3(16.212mm,-16.926mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10303.025mil|Location2.X=10310.586mil|Location1.Y=9457.695mil|Location2.Y=9465.257mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10303.025mil|Location2.X=10310.586mil|Location1.Y=9457.695mil|Location2.Y=9465.257mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-30(11.793mm,-9.679mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10289.105mil|Location2.X=10296.667mil|Location1.Y=9443.776mil|Location2.Y=9451.337mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10289.105mil|Location2.X=10296.667mil|Location1.Y=9443.776mil|Location2.Y=9451.337mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-31(11.439mm,-10.032mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10275.186mil|Location2.X=10282.747mil|Location1.Y=9429.856mil|Location2.Y=9437.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10275.186mil|Location2.X=10282.747mil|Location1.Y=9429.856mil|Location2.Y=9437.418mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-32(11.086mm,-10.386mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.266mil|Location2.X=10268.828mil|Location1.Y=9415.937mil|Location2.Y=9423.498mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.266mil|Location2.X=10268.828mil|Location1.Y=9415.937mil|Location2.Y=9423.498mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-33(10.732mm,-10.739mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10247.347mil|Location2.X=10254.908mil|Location1.Y=9402.017mil|Location2.Y=9409.579mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10247.347mil|Location2.X=10254.908mil|Location1.Y=9402.017mil|Location2.Y=9409.579mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-34(10.379mm,-11.093mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10233.427mil|Location2.X=10240.989mil|Location1.Y=9388.098mil|Location2.Y=9395.659mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10233.427mil|Location2.X=10240.989mil|Location1.Y=9388.098mil|Location2.Y=9395.659mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-35(10.025mm,-11.446mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10219.508mil|Location2.X=10227.07mil|Location1.Y=9374.178mil|Location2.Y=9381.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10219.508mil|Location2.X=10227.07mil|Location1.Y=9374.178mil|Location2.Y=9381.74mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-36(9.672mm,-11.8mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10219.508mil|Location2.X=10227.07mil|Location1.Y=9297.622mil|Location2.Y=9305.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10219.508mil|Location2.X=10227.07mil|Location1.Y=9297.622mil|Location2.Y=9305.183mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-37(9.672mm,-13.744mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10233.427mil|Location2.X=10240.989mil|Location1.Y=9283.702mil|Location2.Y=9291.264mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10233.427mil|Location2.X=10240.989mil|Location1.Y=9283.702mil|Location2.Y=9291.264mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-38(10.025mm,-14.098mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10247.347mil|Location2.X=10254.908mil|Location1.Y=9269.783mil|Location2.Y=9277.344mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10247.347mil|Location2.X=10254.908mil|Location1.Y=9269.783mil|Location2.Y=9277.344mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-39(10.379mm,-14.451mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10490.937mil|Location2.X=10498.498mil|Location1.Y=9186.266mil|Location2.Y=9193.828mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10490.937mil|Location2.X=10498.498mil|Location1.Y=9186.266mil|Location2.Y=9193.828mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-4(16.566mm,-16.573mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.266mil|Location2.X=10268.828mil|Location1.Y=9255.863mil|Location2.Y=9263.425mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.266mil|Location2.X=10268.828mil|Location1.Y=9255.863mil|Location2.Y=9263.425mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-40(10.732mm,-14.805mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10275.186mil|Location2.X=10282.747mil|Location1.Y=9241.944mil|Location2.Y=9249.505mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10275.186mil|Location2.X=10282.747mil|Location1.Y=9241.944mil|Location2.Y=9249.505mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-41(11.086mm,-15.159mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10289.105mil|Location2.X=10296.667mil|Location1.Y=9228.024mil|Location2.Y=9235.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10289.105mil|Location2.X=10296.667mil|Location1.Y=9228.024mil|Location2.Y=9235.586mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-42(11.439mm,-15.512mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10303.025mil|Location2.X=10310.586mil|Location1.Y=9214.105mil|Location2.Y=9221.667mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10303.025mil|Location2.X=10310.586mil|Location1.Y=9214.105mil|Location2.Y=9221.667mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-43(11.793mm,-15.866mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10316.944mil|Location2.X=10324.506mil|Location1.Y=9200.186mil|Location2.Y=9207.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10316.944mil|Location2.X=10324.506mil|Location1.Y=9200.186mil|Location2.Y=9207.747mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-44(12.146mm,-16.219mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10330.863mil|Location2.X=10338.425mil|Location1.Y=9186.266mil|Location2.Y=9193.828mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10330.863mil|Location2.X=10338.425mil|Location1.Y=9186.266mil|Location2.Y=9193.828mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-45(12.5mm,-16.573mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10344.783mil|Location2.X=10352.344mil|Location1.Y=9172.347mil|Location2.Y=9179.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10344.783mil|Location2.X=10352.344mil|Location1.Y=9172.347mil|Location2.Y=9179.908mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-46(12.854mm,-16.926mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10358.702mil|Location2.X=10366.264mil|Location1.Y=9158.427mil|Location2.Y=9165.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10358.702mil|Location2.X=10366.264mil|Location1.Y=9158.427mil|Location2.Y=9165.989mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-47(13.207mm,-17.28mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10372.622mil|Location2.X=10380.183mil|Location1.Y=9144.508mil|Location2.Y=9152.07mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10372.622mil|Location2.X=10380.183mil|Location1.Y=9144.508mil|Location2.Y=9152.07mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-48(13.561mm,-17.633mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-49(14.533mm,-12.772mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10504.856mil|Location2.X=10512.418mil|Location1.Y=9200.186mil|Location2.Y=9207.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10504.856mil|Location2.X=10512.418mil|Location1.Y=9200.186mil|Location2.Y=9207.747mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-5(16.919mm,-16.219mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10518.776mil|Location2.X=10526.337mil|Location1.Y=9214.105mil|Location2.Y=9221.667mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10518.776mil|Location2.X=10526.337mil|Location1.Y=9214.105mil|Location2.Y=9221.667mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-6(17.273mm,-15.866mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10532.695mil|Location2.X=10540.257mil|Location1.Y=9228.024mil|Location2.Y=9235.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10532.695mil|Location2.X=10540.257mil|Location1.Y=9228.024mil|Location2.Y=9235.586mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-7(17.626mm,-15.512mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10546.614mil|Location2.X=10554.176mil|Location1.Y=9241.944mil|Location2.Y=9249.505mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10546.614mil|Location2.X=10554.176mil|Location1.Y=9241.944mil|Location2.Y=9249.505mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-8(17.98mm,-15.159mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10560.534mil|Location2.X=10568.096mil|Location1.Y=9255.863mil|Location2.Y=9263.425mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10560.534mil|Location2.X=10568.096mil|Location1.Y=9255.863mil|Location2.Y=9263.425mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-9(18.334mm,-14.805mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10299.545mil|Location2.X=10307.106mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10299.545mil|Location2.X=10307.106mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(11.704mm,-12.772mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.384mil|Location2.X=10334.945mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.384mil|Location2.X=10334.945mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(12.412mm,-12.065mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.384mil|Location2.X=10334.945mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10327.384mil|Location2.X=10334.945mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(12.412mm,-13.479mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.119mm,-11.358mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.119mm,-12.772mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10355.222mil|Location2.X=10362.784mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.119mm,-14.186mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9419.416mil|Location2.Y=9426.978mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9419.416mil|Location2.Y=9426.978mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.826mm,-10.651mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.826mm,-12.065mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.826mm,-13.479mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9252.383mil|Location2.Y=9259.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10383.061mil|Location2.X=10390.623mil|Location1.Y=9252.383mil|Location2.Y=9259.945mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(13.826mm,-14.893mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(14.533mm,-11.358mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(14.533mm,-12.772mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(14.533mm,-14.186mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9224.545mil|Location2.Y=9232.106mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9224.545mil|Location2.Y=9232.106mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(14.533mm,-15.601mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9447.255mil|Location2.Y=9454.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10410.9mil|Location2.X=10418.462mil|Location1.Y=9447.255mil|Location2.Y=9454.817mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(14.533mm,-9.944mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9419.416mil|Location2.Y=9426.978mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9419.416mil|Location2.Y=9426.978mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.24mm,-10.651mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.3mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.3mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.24mm,-12.065mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.24mm,-13.479mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9252.383mil|Location2.Y=9259.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10438.739mil|Location2.X=10446.301mil|Location1.Y=9252.383mil|Location2.Y=9259.945mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.24mm,-14.893mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9391.578mil|Location2.Y=9399.139mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.947mm,-11.358mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.947mm,-12.772mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10466.578mil|Location2.X=10474.139mil|Location1.Y=9280.222mil|Location2.Y=9287.784mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(15.947mm,-14.186mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.417mil|Location2.X=10501.978mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.417mil|Location2.X=10501.978mil|Location1.Y=9363.739mil|Location2.Y=9371.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(16.654mm,-12.065mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.417mil|Location2.X=10501.978mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10494.417mil|Location2.X=10501.978mil|Location1.Y=9308.061mil|Location2.Y=9315.623mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(16.654mm,-13.479mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10522.255mil|Location2.X=10529.817mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10522.255mil|Location2.X=10529.817mil|Location1.Y=9335.9mil|Location2.Y=9343.462mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Pad U1-V(17.361mm,-12.772mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.729mil|Location2.X=10346.291mil|Location1.Y=12570.032mil|Location2.Y=12577.593mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10338.729mil|Location2.X=10346.291mil|Location1.Y=12570.032mil|Location2.Y=12577.593mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "+" (11.95mm,68.875mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.229mil|Location2.X=15603.79mil|Location1.Y=10702.512mil|Location2.Y=10710.074mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.229mil|Location2.X=15603.79mil|Location1.Y=10702.512mil|Location2.Y=10710.074mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "+" (146.99mm,21.44mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.229mil|Location2.X=15603.79mil|Location1.Y=11702.512mil|Location2.Y=11710.074mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15596.229mil|Location2.X=15603.79mil|Location1.Y=11702.512mil|Location2.Y=11710.074mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "+" (146.99mm,46.84mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10525.384mil|Location2.X=10532.946mil|Location1.Y=12665.213mil|Location2.Y=12672.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10525.384mil|Location2.X=10532.946mil|Location1.Y=12665.213mil|Location2.Y=12672.774mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C1_U_half-bridge_A" (30.391mm,71.285mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15782.554mil|Location2.X=15790.116mil|Location1.Y=10797.713mil|Location2.Y=10805.274mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15782.554mil|Location2.X=15790.116mil|Location1.Y=10797.713mil|Location2.Y=10805.274mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C1_U_half-bridge_B" (138.023mm,23.85mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15782.554mil|Location2.X=15790.116mil|Location1.Y=11797.713mil|Location2.Y=11805.274mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=15782.554mil|Location2.X=15790.116mil|Location1.Y=11797.713mil|Location2.Y=11805.274mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C1_U_half-bridge_C" (138.023mm,49.25mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.921mil|Location2.X=9501.482mil|Location1.Y=11004.213mil|Location2.Y=11011.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.921mil|Location2.X=9501.482mil|Location1.Y=11004.213mil|Location2.Y=11011.774mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C2_U_half-bridge_A" (8.891mm,29.095mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10855.092mil|Location2.X=10862.653mil|Location1.Y=9691.055mil|Location2.Y=9698.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10855.092mil|Location2.X=10862.653mil|Location1.Y=9691.055mil|Location2.Y=9698.617mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C2_U_half-bridge_B" (26.323mm,18.905mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13662.954mil|Location2.X=13670.516mil|Location1.Y=11842.76mil|Location2.Y=11850.322mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13662.954mil|Location2.X=13670.516mil|Location1.Y=11842.76mil|Location2.Y=11850.322mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "C2_U_half-bridge_C" (84.058mm,50.394mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10473.054mil|Location2.X=10480.616mil|Location1.Y=11809.221mil|Location2.Y=11816.783mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10473.054mil|Location2.X=10480.616mil|Location1.Y=11809.221mil|Location2.Y=11816.783mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "T1_U_half-bridge_A" (3.162mm,48.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11323.054mil|Location2.X=11330.616mil|Location1.Y=11809.221mil|Location2.Y=11816.783mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11323.054mil|Location2.X=11330.616mil|Location1.Y=11809.221mil|Location2.Y=11816.783mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "T1_U_half-bridge_B" (24.752mm,48.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12639.246mil|Location2.X=12646.808mil|Location1.Y=10806.213mil|Location2.Y=10813.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12639.246mil|Location2.X=12646.808mil|Location1.Y=10806.213mil|Location2.Y=10813.774mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "T1_U_half-bridge_C" (46.112mm,24.066mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12178.053mil|Location2.X=12185.614mil|Location1.Y=11761.213mil|Location2.Y=11768.774mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12178.053mil|Location2.X=12185.614mil|Location1.Y=11761.213mil|Location2.Y=11768.774mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "T2_U_half-bridge_C" (46.342mm,48.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10209.73mil|Location2.X=10217.292mil|Location1.Y=9646.111mil|Location2.Y=9653.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10209.73mil|Location2.X=10217.292mil|Location1.Y=9646.111mil|Location2.Y=9653.672mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "U1" (8.408mm,-5.655mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10404.636mil|Location2.X=10412.198mil|Location1.Y=9141.724mil|Location2.Y=9149.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10404.636mil|Location2.X=10412.198mil|Location1.Y=9141.724mil|Location2.Y=9149.286mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (14.215mm,-17.545mm)(14.533mm,-17.863mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10407.768mil|Location2.X=10415.33mil|Location1.Y=9533.208mil|Location2.Y=9540.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10407.768mil|Location2.X=10415.33mil|Location1.Y=9533.208mil|Location2.Y=9540.77mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (14.374mm,-7.84mm)(14.533mm,-7.681mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10417.164mil|Location2.X=10424.726mil|Location1.Y=9141.724mil|Location2.Y=9149.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10417.164mil|Location2.X=10424.726mil|Location1.Y=9141.724mil|Location2.Y=9149.286mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (14.533mm,-17.863mm)(14.851mm,-17.545mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10414.032mil|Location2.X=10421.594mil|Location1.Y=9533.208mil|Location2.Y=9540.769mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10414.032mil|Location2.X=10421.594mil|Location1.Y=9533.208mil|Location2.Y=9540.769mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (14.533mm,-7.681mm)(14.692mm,-7.84mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.611mil|Location2.X=9501.173mil|Location1.Y=10648.739mil|Location2.Y=10656.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.611mil|Location2.X=9501.173mil|Location1.Y=10648.739mil|Location2.Y=10656.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-17.395mm,20.574mm)(0.625mm,20.574mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9153.896mil|Location2.X=9161.458mil|Location1.Y=10693.739mil|Location2.Y=10701.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9153.896mil|Location2.X=9161.458mil|Location1.Y=10693.739mil|Location2.Y=10701.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-17.395mm,20.574mm)(-17.395mm,22.86mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9153.896mil|Location2.X=9161.458mil|Location1.Y=10833.739mil|Location2.Y=10841.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9153.896mil|Location2.X=9161.458mil|Location1.Y=10833.739mil|Location2.Y=10841.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-17.395mm,22.86mm)(-17.395mm,27.686mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.611mil|Location2.X=9501.173mil|Location1.Y=10928.739mil|Location2.Y=10936.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9493.611mil|Location2.X=9501.173mil|Location1.Y=10928.739mil|Location2.Y=10936.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-17.395mm,27.686mm)(0.625mm,27.686mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10608.208mil|Location2.X=10615.77mil|Location1.Y=9339.032mil|Location2.Y=9346.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10608.208mil|Location2.X=10615.77mil|Location1.Y=9339.032mil|Location2.Y=9346.594mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (19.465mm,-12.613mm)(19.624mm,-12.772mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10608.208mil|Location2.X=10615.77mil|Location1.Y=9332.768mil|Location2.Y=9340.33mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10608.208mil|Location2.X=10615.77mil|Location1.Y=9332.768mil|Location2.Y=9340.33mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (19.465mm,-12.931mm)(19.624mm,-12.772mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11284.408mil|Location2.X=11291.97mil|Location1.Y=9828.739mil|Location2.Y=9836.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11284.408mil|Location2.X=11291.97mil|Location1.Y=9828.739mil|Location2.Y=9836.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (27.71mm,-0.254mm)(45.73mm,-0.254mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10929.684mil|Location2.X=10937.245mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10929.684mil|Location2.X=10937.245mil|Location1.Y=9688.739mil|Location2.Y=9696.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (27.71mm,-7.366mm)(27.71mm,-0.254mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11284.408mil|Location2.X=11291.97mil|Location1.Y=9548.739mil|Location2.Y=9556.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11284.408mil|Location2.X=11291.97mil|Location1.Y=9548.739mil|Location2.Y=9556.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (27.71mm,-7.366mm)(45.73mm,-7.366mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11639.133mil|Location2.X=11646.694mil|Location1.Y=9783.739mil|Location2.Y=9791.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11639.133mil|Location2.X=11646.694mil|Location1.Y=9783.739mil|Location2.Y=9791.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (45.73mm,-2.54mm)(45.73mm,-0.254mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11639.133mil|Location2.X=11646.694mil|Location1.Y=9643.739mil|Location2.Y=9651.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11639.133mil|Location2.X=11646.694mil|Location1.Y=9643.739mil|Location2.Y=9651.3mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (45.73mm,-7.366mm)(45.73mm,-2.54mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13143.621mil|Location2.X=13151.182mil|Location1.Y=11413.148mil|Location2.Y=11420.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13143.621mil|Location2.X=13151.182mil|Location1.Y=11413.148mil|Location2.Y=11420.71mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (83.944mm,30.98mm)(83.944mm,49mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13188.621mil|Location2.X=13196.182mil|Location1.Y=11058.424mil|Location2.Y=11065.986mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13188.621mil|Location2.X=13196.182mil|Location1.Y=11058.424mil|Location2.Y=11065.986mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (83.944mm,30.98mm)(86.23mm,30.98mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11767.873mil|Location2.Y=11775.434mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13283.621mil|Location2.X=13291.182mil|Location1.Y=11767.873mil|Location2.Y=11775.434mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (83.944mm,49mm)(91.056mm,49mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13328.621mil|Location2.X=13336.182mil|Location1.Y=11058.424mil|Location2.Y=11065.986mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13328.621mil|Location2.X=13336.182mil|Location1.Y=11058.424mil|Location2.Y=11065.986mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (86.23mm,30.98mm)(91.056mm,30.98mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10213.592mil|Location2.X=10221.154mil|Location1.Y=9339.032mil|Location2.Y=9346.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10213.592mil|Location2.X=10221.154mil|Location1.Y=9339.032mil|Location2.Y=9346.594mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (9.442mm,-12.772mm)(9.601mm,-12.613mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10213.592mil|Location2.X=10221.154mil|Location1.Y=9332.768mil|Location2.Y=9340.33mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10213.592mil|Location2.X=10221.154mil|Location1.Y=9332.768mil|Location2.Y=9340.33mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (9.442mm,-12.772mm)(9.601mm,-12.931mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13423.621mil|Location2.X=13431.182mil|Location1.Y=11413.148mil|Location2.Y=11420.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13423.621mil|Location2.X=13431.182mil|Location1.Y=11413.148mil|Location2.Y=11420.71mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (91.056mm,30.98mm)(91.056mm,49mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID2NHKW3ZSZY4VBLA4B2IHDWMYWJMA5WOL14VXFFBVN1NTJHAFZ0TD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room U_smart-gate-driver (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_smart-gate-driver'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10665.228mil|Location1.Y=0mil|Location2.Y=9590.233mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10665.228mil|Location1.Y=0mil|Location2.Y=9590.233mil|Absolute=True">Room Definition: Between Component U1-DRV83053EPHPRQ1 (14.533mm,-12.772mm) on Top Layer And Room U_smart-gate-driver (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_smart-gate-driver')) </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID32TUEEM4043YBGKLQ5FQSL4R5FLX0LFBSCBIRQJLLBHNEEUYA4UI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10676.181mil|Location1.Y=0mil|Location2.Y=12599.397mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10676.181mil|Location1.Y=0mil|Location2.Y=12599.397mil|Absolute=True">Room Definition: Between Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A')) And Small Component C1_U_half-bridge_A-1800uF, 35V (12.7mm,60.325mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9872.126mil|Location1.Y=0mil|Location2.Y=10937.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9872.126mil|Location1.Y=0mil|Location2.Y=10937.52mil|Absolute=True">Room Definition: Between Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A')) And Small Component C2_U_half-bridge_A-1.5 µF, 100 V (-15.875mm,24.13mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10737.003mil|Location1.Y=0mil|Location2.Y=11695.269mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10737.003mil|Location1.Y=0mil|Location2.Y=11695.269mil|Absolute=True">Room Definition: Between Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A')) And Small Component T1_U_half-bridge_A-IRLB8314PBF, 130 A, 30 V (12.7mm,29.21mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10727.96mil|Location1.Y=0mil|Location2.Y=10740.165mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GIT\00_RobonAUT2020-PCB\04-BLDC-driver\RobonAUT_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=10727.96mil|Location1.Y=0mil|Location2.Y=10740.165mil|Absolute=True">Room Definition: Between Room U_half-bridge_A (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_half-bridge_A')) And Small Component T2_U_half-bridge_A-IRLB8314PBF, 130 A, 30 V (12.7mm,19.05mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
