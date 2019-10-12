@@ -18,6 +18,8 @@
 
 ## Version control of binary files
 
+`git lfs install` command must be executed after every git install.
+
 Text based file types
 * .pas
 * .OutJob
