@@ -18,4 +18,5 @@ Gerbers/
 !Gerbers/*.zip
 
 *.htm
+*.html
 *.drc
