@@ -18,10 +18,17 @@ $pdf_path = "PDF\$projname.PDF"
 
 if (Test-Path -Path $pdf_path)
 {
-	copy "PDF\$projname.PDF" "$deploy_path\$projname.pdf"
+	copy $pdf_path "$deploy_path\$projname.pdf"
 }
 
 # BOM --------------------------------------------------------------------------
+
+$bom_path = "Project Outputs for $projname\$projname.xlsx"
+
+if (Test-Path -Path $bom_path)
+{
+	copy $bom_path "$deploy_path\$projname-bom.xlsx"
+}
 
 # How to generate BOM?
 
