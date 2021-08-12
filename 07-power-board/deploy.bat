@@ -1,1 +1,0 @@
-powershell ..\common\deploy.ps1
