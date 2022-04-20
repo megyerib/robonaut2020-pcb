@@ -6,3 +6,9 @@
 *.PrjPcb filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
+
+# https://github.com/github/linguist/blob/master/docs/overrides.md
+*.OutJob linguist-detectable
+*.PcbDoc linguist-detectable
+*.PrjPcb linguist-detectable
+*.pas -linguist-detectable
